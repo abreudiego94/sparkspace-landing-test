@@ -6,11 +6,17 @@ import GradedPaperIcon from "./assets/landing/paper.svg"
 import WarningIcon from "./assets/landing/warning.svg"
 import { Card } from "@/components/ui/card"
 import { Button } from "./components/ui/button"
+import { useTypingEffect } from "./hooks/useTypingEffect"
+import { useProgressiveIncrease } from "./hooks/useProgressiveIncreaseEffect"
 
 const CANNED_FEEDBACK =
     "**Summary Evaluation Against Rubric: Accuracy (10/10):** The essay presents accurate information about Abraham Lincoln's life, presidency, and significant contributions, including key events like his election, the Civil..."
 
 const App = () => {
+     const textTypingEffect = useTypingEffect(CANNED_FEEDBACK, 5000)
+     const progressiveIncrease = useProgressiveIncrease(0, 40, 1, 100)
+    
+     
     return (
         <div className="flex min-h-screen w-full flex-1 flex-col">
             <div className="h-2 bg-navy-800"></div>
@@ -34,7 +40,7 @@ const App = () => {
                             </div>
                             <div className="flex w-[200px] items-center justify-center">
                                 <div>
-                                    <p className="text-sm">{CANNED_FEEDBACK}</p>
+                                    <p className="text-sm">{textTypingEffect}</p>
                                 </div>
                             </div>
                         </Card>
@@ -48,10 +54,15 @@ const App = () => {
                                 <div>
                                     <p className="mb-3 text-sm">Probability AI generated</p>
                                     <div className="relative flex aspect-[2] items-center justify-center overflow-hidden rounded-t-full bg-navy-900">
-                                        <div className="absolute top-0 aspect-square w-full rotate-[calc(72deg-45deg)] bg-gradient-to-tr from-transparent from-50% to-white to-50% transition-transform duration-500"></div>
+                                        <div
+                                            className="absolute top-0 aspect-square w-full rotate-[calc(72deg-45deg)] bg-gradient-to-tr from-transparent from-50% to-white to-50% transition-transform duration-500"
+                                            style={{
+                                                transform: `rotate(${(progressiveIncrease / 100) * 360 - 45}deg)`, // Incrementa o ângulo
+                                            }}
+                                        ></div>
                                         <div className="absolute top-1/4 flex aspect-square w-3/4 justify-center rounded-full bg-white"></div>
                                         <div className="absolute bottom-0 w-full truncate text-center text-2xl leading-none">
-                                            40%
+                                            {progressiveIncrease}%
                                         </div>
                                     </div>
                                 </div>
@@ -63,8 +74,10 @@ const App = () => {
 
                                 <p>Import Essays</p>
                             </div>
-                            <div className="flex w-[200px] items-center justify-center">
-                                <div></div>
+                            <div className="flex w-[200px] flex-col items-center justify-center">
+                                <button className="animate-pulseGrow mt-4 rounded-lg bg-blue-500 px-6 py-2 font-medium text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                                    Click 
+                                </button>
                             </div>
                         </Card>
                         <Card className="flex h-[220px] w-[370px] justify-center gap-2 rounded p-5">
@@ -73,8 +86,10 @@ const App = () => {
 
                                 <p>Use Your Rubric</p>
                             </div>
-                            <div className="flex w-[200px] items-center justify-center">
-                                <div></div>
+                            <div className="flex w-[200px] flex-col items-center justify-center">
+                                <button className="animate-pulseGrow mt-4 rounded-lg bg-blue-500 px-6 py-2 font-medium text-white shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                                    Click
+                                </button>
                             </div>
                         </Card>
                     </div>
